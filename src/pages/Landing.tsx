@@ -13,7 +13,7 @@ export default function Landing() {
           <h1>Cryptrack</h1>
         </div>
         <div className="">
-          <Link to="/signin">
+          <Link to="/login">
             <img src={login} alt="Sign In" className="signin-svg" />
             <span className="signin-text">Sign In</span>
           </Link>
@@ -27,7 +27,7 @@ export default function Landing() {
           <span className="">Investment tracking</span>
         </div>
         <img className="wallet" src={wallet} alt="wallet-coin" />
-        <Link to="/register">
+        <Link className="main-btn" to="/register">
           <button className="landing-btn">Get started...</button>
         </Link>
       </main>
