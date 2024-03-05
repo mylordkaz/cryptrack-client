@@ -9,22 +9,21 @@
   transform: translate(-50%, -50%);
   top: 40%;
   left: 50%;
-  background-color: rgba(255, 255, 255, 0.13);
+  background-color: rgba(211, 217, 236, 0.877);
   width: 400px;
-  height: 450px;
+  height: 600px;
   margin: 7em auto;
-  border-radius: 1.5em;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
   backdrop-filter: blur(10px);
   box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
 }
 
 .auth-title {
   padding-top: 40px;
-  color: #646cff;
+  color: #272cb0;
   font-family: Inter, sans-serif;
   font-weight: bold;
-  font-size: 23px;
+  font-size: 36px;
 }
 
 input {
@@ -33,7 +32,7 @@ input {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 1px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(240, 242, 247, 0.839);
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -60,7 +59,7 @@ input:focus {
   cursor: pointer;
   border-radius: 8px;
   color: #f9f9f9;
-  /* background: linear-gradient(to right, #272cb0, #406ffb); */
+  background: linear-gradient(to right, #272cb0, #406ffb);
   border: 0;
   margin-top: 30px;
   padding-left: 40px;
@@ -72,11 +71,6 @@ input:focus {
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
 
-@media (max-width: 600px) {
-  .mainform {
-    border-radius: 0px;
-  }
-}
 @media (prefers-color-scheme: light) {
   .mainform {
     background-color: rgba(128, 127, 127, 0.4);
