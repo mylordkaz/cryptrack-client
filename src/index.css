@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body,
-:root {
+:root,
+#root {
   margin: 0;
   height: 100vh;
 
