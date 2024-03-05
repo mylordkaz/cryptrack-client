@@ -13,7 +13,7 @@ export default function Landing() {
           <h1>Cryptrack</h1>
         </div>
         <div className="">
-          <Link to="/signin" className="">
+          <Link to="/signin">
             <img src={login} alt="Sign In" className="signin-svg" />
             <span className="signin-text">Sign In</span>
           </Link>
