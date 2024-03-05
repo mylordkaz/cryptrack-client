@@ -5,12 +5,24 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Landing from './pages/Landing.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
+import Register from './pages/Register.tsx';
+import Login from './pages/Login.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Landing />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/register',
+        element: <Register />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+    ],
   },
 ]);
 
