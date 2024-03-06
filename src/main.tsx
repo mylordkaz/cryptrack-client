@@ -7,6 +7,7 @@ import Landing from './pages/Landing.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
+import App from './pages/App.tsx';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,19 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/login',
         element: <Login />,
+        errorElement: <ErrorPage />,
       },
     ],
+  },
+  {
+    path: '/app',
+    element: <App />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
