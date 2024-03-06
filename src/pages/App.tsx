@@ -1,7 +1,7 @@
 import logo from '../assets/logo.svg';
 import '../App.css';
 import OverviewCard from '../components/OverviewCard.tsx';
-import CryptoTable from '../components/cryptoTable.tsx';
+import CryptoTable from '../components/CryptoTable.tsx';
 
 export default function App() {
   return (

@@ -26,5 +26,23 @@
   font-size: 40px;
 }
 .table {
-  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+.table table {
+  width: 100%;
+}
+table tr {
+  height: 50px;
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+thead .coin {
+  text-align: left;
+}
+thead th {
+  text-align: right;
+}
+tbody td {
+  text-align: right;
 }

@@ -13,29 +13,29 @@ export default function CryptoTable() {
             <table>
               <thead>
                 <tr>
-                  <th>Coin</th>
+                  <th className="coin">Coin</th>
                   <th>Price</th>
                   <th>Holding</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th>BTC</th>
+                  <td>BTC</td>
                   <td>$ 67543.43</td>
                   <td>$ 3457.34</td>
                 </tr>
                 <tr>
-                  <th>ETC</th>
+                  <td>ETC</td>
                   <td>$ 3463.84</td>
                   <td>$ 2303.12</td>
                 </tr>
                 <tr>
-                  <th>KASPA</th>
+                  <td>KASPA</td>
                   <td>$ 0.0023</td>
                   <td>$ 654.56</td>
                 </tr>
                 <tr>
-                  <th>USDT</th>
+                  <td>USDT</td>
                   <td>$ 1</td>
                   <td>$ 1549</td>
                 </tr>
