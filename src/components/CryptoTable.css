@@ -1,0 +1,30 @@
+.crypto-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.crypto-table {
+  width: 400px;
+  height: 100%;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 5px 0 #b3b1b1;
+}
+.crypto-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.crypto-nav span {
+  font-weight: 600;
+  font-size: 20px;
+}
+.crypto-nav button {
+  font-weight: 600;
+  font-size: 40px;
+}
+.table {
+  height: 100%;
+}

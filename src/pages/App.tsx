@@ -1,6 +1,7 @@
 import logo from '../assets/logo.svg';
 import '../App.css';
-import OverviewCard from '../components/OverviewCard';
+import OverviewCard from '../components/OverviewCard.tsx';
+import CryptoTable from '../components/cryptoTable.tsx';
 
 export default function App() {
   return (
@@ -9,7 +10,7 @@ export default function App() {
         <img className="app-logo" src={logo} alt="" />
       </header>
       <OverviewCard />
-      <div></div>
+      <CryptoTable />
       <footer></footer>
     </>
   );
