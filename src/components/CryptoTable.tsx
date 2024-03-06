@@ -1,4 +1,5 @@
 import './CryptoTable.css';
+import add from '../assets/btn+.svg';
 
 export default function CryptoTable() {
   return (
@@ -7,13 +8,15 @@ export default function CryptoTable() {
         <div className="crypto-table">
           <div className="crypto-nav">
             <span>Assets</span>
-            <button>+</button>
+            <button>
+              <img src={add} alt="+ button" />
+            </button>
           </div>
           <div className="table">
             <table>
               <thead>
                 <tr>
-                  <th className="coin">Coin</th>
+                  <th>Coin</th>
                   <th>Price</th>
                   <th>Holding</th>
                 </tr>

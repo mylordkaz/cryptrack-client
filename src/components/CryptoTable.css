@@ -5,7 +5,7 @@
   margin-top: 30px;
 }
 .crypto-table {
-  width: 400px;
+  width: 95%;
   height: 100%;
   border-radius: 8px;
   background-color: #fff;
@@ -22,8 +22,10 @@
   font-size: 20px;
 }
 .crypto-nav button {
-  font-weight: 600;
-  font-size: 40px;
+  width: 35px;
+}
+.crypto-nav button:hover {
+  width: 40px;
 }
 .table {
   width: 100%;
@@ -36,8 +38,8 @@ table tr {
   height: 50px;
   border-bottom: 1px solid rgb(219, 219, 219);
 }
-
-thead .coin {
+table td:nth-child(1),
+th:nth-child(1) {
   text-align: left;
 }
 thead th {
@@ -45,4 +47,20 @@ thead th {
 }
 tbody td {
   text-align: right;
+}
+
+@media screen and (min-width: 992px) {
+  .crypto-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 30px;
+    margin-left: 50px;
+  }
+  .crypto-table {
+    width: 60%;
+  }
+  .table {
+    padding: 20px;
+  }
 }
