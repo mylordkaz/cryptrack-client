@@ -7,7 +7,7 @@ export default function TransactionTable() {
       <div className="crypto-container">
         <div className="crypto-table">
           <div className="crypto-nav">
-            <span>Assets</span>
+            <span>transactions</span>
             <button>
               <img src={add} alt="+ button" />
             </button>
