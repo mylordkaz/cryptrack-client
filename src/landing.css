@@ -69,6 +69,11 @@
 }
 
 @media screen and (min-width: 768px) {
+  .login-btn {
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+  }
   .header {
     display: flex;
     justify-content: space-between;
@@ -108,7 +113,7 @@
   }
   .signin-text {
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   a {
