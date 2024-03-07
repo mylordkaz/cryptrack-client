@@ -1,3 +1,12 @@
 .app-logo {
   width: 80px;
 }
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.menu-btn {
+  width: 35px;
+}
