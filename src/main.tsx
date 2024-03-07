@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'rsuite/dist/rsuite.min.css';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Landing from './pages/Landing.tsx';
