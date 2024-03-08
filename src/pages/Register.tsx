@@ -1,8 +1,9 @@
-import { useState, FormEvent, useRef, useEffect } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 import '../auth.css';
+import useOutsideClick from '../hook/useOutsideClick';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -35,22 +36,9 @@ const Register: React.FC = () => {
       console.error('Error during registration:', error.message);
     }
   };
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        registerRef.current &&
-        !registerRef.current.contains(e.target as Node)
-      ) {
-        navigate('/');
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [navigate]);
+  useOutsideClick(registerRef, () => {
+    navigate('/');
+  });
 
   return (
     <>
