@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import menu from '../../assets/menu.svg';
 import './dropdown.css';
+import useOutsideClick from '../../hook/useOutsideClick';
 
 export default function DropDown() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -10,21 +11,10 @@ export default function DropDown() {
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
-  const closeDropdown = (e: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(e.target as Node)
-    ) {
-      setDropdownOpen(false);
-    }
+  const closeDropdown = () => {
+    setDropdownOpen(false);
   };
-  useEffect(() => {
-    document.addEventListener('mousedown', closeDropdown);
-
-    return () => {
-      document.removeEventListener('mousedown', closeDropdown);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, closeDropdown);
 
   return (
     <>
