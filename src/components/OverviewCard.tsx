@@ -1,12 +1,19 @@
 import './OverviewCard.css';
-export default function OverviewCard() {
+
+interface OverviewCardProps {
+  totalPortfolioValue: number;
+}
+
+const OverviewCard: React.FC<OverviewCardProps> = ({ totalPortfolioValue }) => {
   return (
     <>
       <div className="overview">
         <div className="card">
-          <span>$ 21673.51</span>
+          <span>${totalPortfolioValue.toFixed(2)}</span>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default OverviewCard;
