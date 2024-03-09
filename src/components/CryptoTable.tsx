@@ -7,8 +7,15 @@ interface CryptoData {
   name: string;
   price: number;
 }
+interface CryptoTableProps {
+  onCryptoClick: (cryptoName: string) => void;
+  setTotalPortfolioValue: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export default function CryptoTable() {
+export default function CryptoTable({
+  onCryptoClick,
+  setTotalPortfolioValue,
+}: CryptoTableProps) {
   const [totalHoldingData, setTotalHoldingData] = useState<
     Record<string, number>
   >({});
@@ -65,9 +72,31 @@ export default function CryptoTable() {
       }
     };
 
+    const calculateTotalportfolioValue = () => {
+      let sum = 0;
+      Object.entries(totalHoldingData).forEach(
+        ([cryptoName, holdingAmount]) => {
+          const crypto = cryptoPrices.find(
+            ({ name }) =>
+              name.toLocaleLowerCase() === cryptoName.toLocaleLowerCase()
+          );
+          const price = crypto ? crypto.price : 0;
+          const totalValue = price * holdingAmount;
+          sum += totalValue;
+        }
+      );
+
+      setTotalPortfolioValue(sum);
+    };
+
     fetchData();
     fetchCryptoPrices();
+    calculateTotalportfolioValue();
   }, []);
+
+  const handleCryptoRowClick = (cryptoName: string) => {
+    onCryptoClick(cryptoName);
+  };
 
   return (
     <>
@@ -100,7 +129,10 @@ export default function CryptoTable() {
                     const price = crypto ? crypto.price : 0;
                     const totalValue = price * holdingAmount;
                     return (
-                      <tr key={cryptoName}>
+                      <tr
+                        key={cryptoName}
+                        onClick={() => handleCryptoRowClick(cryptoName)}
+                      >
                         <td>{cryptoName}</td>
                         <td>${price.toLocaleString()}</td>
                         <td>
