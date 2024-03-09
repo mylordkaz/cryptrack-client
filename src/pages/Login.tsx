@@ -16,19 +16,16 @@ const Login = () => {
     try {
       axios.defaults.withCredentials = true;
 
-      const response = await axios.post(
-        'https://solo-back-04d0.onrender.com/api/auth/login',
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await axios.post('http://localhost:3000/auth/login', {
+        email: email,
+        password: password,
+      });
 
       if (response.status === 200) {
         navigate('/App');
         console.log('Login successfully');
       } else {
-        console.error('Invalid credentials:');
+        console.error('Invalid credentials:', response.data);
         navigate('/');
       }
     } catch (error: any) {
