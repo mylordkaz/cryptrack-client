@@ -1,13 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import menu from '../../assets/menu.svg';
 import './dropdown.css';
 import useOutsideClick from '../../hook/useOutsideClick';
+import { logout } from '../../service/AuthService';
 
 export default function DropDown() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    const successLogout = await logout();
+
+    if (successLogout) {
+      navigate('/');
+    }
+  };
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -27,9 +36,9 @@ export default function DropDown() {
             <Link className="drop-link" to="/settings">
               Settings
             </Link>
-            <Link className="drop-link" to="/logout">
+            <button className="drop-link" onClick={handleLogout}>
               Logout
-            </Link>
+            </button>
           </div>
         )}
       </div>
