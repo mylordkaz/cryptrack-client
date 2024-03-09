@@ -1,7 +1,74 @@
 import './CryptoTable.css';
 import add from '../assets/btn+.svg';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface CryptoData {
+  name: string;
+  price: number;
+}
 
 export default function CryptoTable() {
+  const [totalHoldingData, setTotalHoldingData] = useState<
+    Record<string, number>
+  >({});
+  const [cryptoPrices, setCryptoPrices] = useState<CryptoData[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3000/transactions/total',
+          {
+            withCredentials: true,
+          }
+        );
+
+        setTotalHoldingData(response.data.totalAmounts);
+        console.log(response.data.totalAmounts);
+      } catch (error: any) {
+        if (axios.isAxiosError(error)) {
+          const axiosError = error;
+          if (axiosError.response) {
+            console.error(
+              'Server responded with error:',
+              axiosError.response.data
+            );
+          } else if (axiosError.request) {
+            console.error(
+              'No response received from the server:',
+              axiosError.request
+            );
+          } else {
+            console.error('Error setting up the request:', axiosError.message);
+          }
+        } else {
+          // Handle non-Axios errors
+          console.error('Non-Axios error:', error.message);
+        }
+      }
+    };
+
+    const fetchCryptoPrices = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3000/cryptos/prices',
+          {
+            withCredentials: true,
+          }
+        );
+
+        setCryptoPrices(response.data.cryptoPrices as CryptoData[]);
+        console.log(response.data.cryptoPrices);
+      } catch (error: any) {
+        console.error('Error fetching crypto prices:', error.message);
+      }
+    };
+
+    fetchData();
+    fetchCryptoPrices();
+  }, []);
+
   return (
     <>
       <div className="crypto-container">
@@ -22,26 +89,27 @@ export default function CryptoTable() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>BTC</td>
-                  <td>$ 67543.43</td>
-                  <td>$ 3457.34</td>
-                </tr>
-                <tr>
-                  <td>ETC</td>
-                  <td>$ 3463.84</td>
-                  <td>$ 2303.12</td>
-                </tr>
-                <tr>
-                  <td>KASPA</td>
-                  <td>$ 0.0023</td>
-                  <td>$ 654.56</td>
-                </tr>
-                <tr>
-                  <td>USDT</td>
-                  <td>$ 1</td>
-                  <td>$ 1549</td>
-                </tr>
+                {Object.entries(totalHoldingData).map(
+                  ([cryptoName, holdingAmount]) => {
+                    const crypto = cryptoPrices.find(
+                      ({ name }) =>
+                        name.toLocaleLowerCase() ===
+                        cryptoName.toLocaleLowerCase()
+                    );
+
+                    const price = crypto ? crypto.price : 0;
+                    const totalValue = price * holdingAmount;
+                    return (
+                      <tr key={cryptoName}>
+                        <td>{cryptoName}</td>
+                        <td>${price.toLocaleString()}</td>
+                        <td>
+                          {`$ ${totalValue.toFixed(3)} `} <br /> {holdingAmount}
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
           </div>
