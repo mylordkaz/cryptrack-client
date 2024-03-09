@@ -17,7 +17,7 @@ const Register: React.FC = () => {
 
     try {
       const response = await axios.post(
-        'https://solo-back-04d0.onrender.com/api/auth/Register',
+        'https://localhost:3000/auth/Register',
         {
           email: email,
           username: username,
