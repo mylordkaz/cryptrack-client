@@ -1,16 +1,61 @@
 import './CryptoTable.css';
-import add from '../assets/btn+.svg';
 
-export default function TransactionTable() {
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface Transaction {
+  name: string;
+  price: number;
+  quantity: number;
+  date: string;
+}
+interface TransactionTableProps {
+  cryptoName: string;
+  onBack: () => void;
+}
+
+export default function TransactionTable({
+  cryptoName,
+  onBack,
+}: TransactionTableProps) {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/transactions/all?name=${cryptoName}`,
+          {
+            withCredentials: true,
+          }
+        );
+        setTransactions(response.data.transactions);
+        console.log(transactions);
+      } catch (error: any) {
+        console.error('Error fetching transactions:', error.message);
+      }
+    };
+    fetchTransactions();
+  }, [cryptoName]);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
+    const formatter = new Intl.DateTimeFormat(undefined, options);
+    return formatter.format(date);
+  };
+
   return (
     <>
       <div className="crypto-container">
         <div className="crypto-table">
           <div className="crypto-nav">
             <span>transactions</span>
-            <button>
-              <img src={add} alt="+ button" />
-            </button>
+            <button onClick={onBack}>back</button>
           </div>
           <div className="table">
             <table>
@@ -18,11 +63,18 @@ export default function TransactionTable() {
                 <tr>
                   <th>Date</th>
                   <th>Price</th>
-                  <th>Amount</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                {transactions.map((transaction) => (
+                  <tr key={transaction.date}>
+                    <td>{formatDate(transaction.date)}</td>
+                    <td>{transaction.price}</td>
+                    <td>{transaction.quantity}</td>
+                  </tr>
+                ))}
+                {/* <tr>
                   <td>16/02/24</td>
                   <td>$ 67543.43</td>
                   <td>$ 100</td>
@@ -41,7 +93,7 @@ export default function TransactionTable() {
                   <td>20/12/23</td>
                   <td>$ 66783</td>
                   <td>$ 260</td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>
