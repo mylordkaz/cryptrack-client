@@ -7,6 +7,7 @@ import ErrorPage from './pages/ErrorPage.tsx';
 import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
 import App from './pages/App.tsx';
+import AddTransaction from './pages/AddTransaction.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,12 @@ const router = createBrowserRouter([
     path: '/app',
     element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/app/add',
+        element: <AddTransaction />,
+      },
+    ],
   },
 ]);
 
