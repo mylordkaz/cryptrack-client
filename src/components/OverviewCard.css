@@ -19,7 +19,7 @@
   font-style: italic;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .overview {
     display: flex;
     justify-content: flex-start;
