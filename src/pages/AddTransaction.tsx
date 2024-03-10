@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useOutsideClick from '../hook/useOutsideClick';
 import '../add.css';
 import useCryptoPrices from '../service/api/useCryptoPrices';
-import axios from 'axios';
+import { addTransaction } from '../service/usePostTransaction';
 
 export default function AddTransaction() {
   const navigate = useNavigate();
@@ -37,21 +37,16 @@ export default function AddTransaction() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!quantity || isNaN(quantity) || quantity <= 0) {
+    if (!quantity || isNaN(quantity)) {
       alert('Please enter the quantity');
       return;
     }
     try {
-      const response = await axios.post(
-        'http://localhost:3000/transactions/add',
-        { name: selectedCoin, price: selectedCryptoPrice, quantity: quantity },
-        { withCredentials: true }
-      );
-      console.log('Transaction added:', response.data);
+      await addTransaction(selectedCoin, selectedCryptoPrice, quantity);
+      navigate('/app');
     } catch (error) {
       console.error('Failed to add transaction:', error);
     }
-    navigate('/app');
   };
 
   return (
