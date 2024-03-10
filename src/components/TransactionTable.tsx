@@ -74,26 +74,6 @@ export default function TransactionTable({
                     <td>{transaction.quantity}</td>
                   </tr>
                 ))}
-                {/* <tr>
-                  <td>16/02/24</td>
-                  <td>$ 67543.43</td>
-                  <td>$ 100</td>
-                </tr>
-                <tr>
-                  <td>05/01/24</td>
-                  <td>$ 60345</td>
-                  <td>$ 250</td>
-                </tr>
-                <tr>
-                  <td>23/12/23</td>
-                  <td>$ 54484</td>
-                  <td>$ 100</td>
-                </tr>
-                <tr>
-                  <td>20/12/23</td>
-                  <td>$ 66783</td>
-                  <td>$ 260</td>
-                </tr> */}
               </tbody>
             </table>
           </div>
