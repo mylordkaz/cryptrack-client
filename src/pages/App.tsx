@@ -7,12 +7,13 @@ import TransactionTable from '../components/TransactionTable.tsx';
 import { useEffect, useState } from 'react';
 import useCryptoData from '../service/useCryptoData.ts';
 import useCryptoPrices from '../service/api/useCryptoPrices.ts';
+import { Outlet } from 'react-router-dom';
 
 export default function App() {
   const [selectedCrypto, setSelectCrypto] = useState<string | null>(null);
   const [totalValue, setTotalValue] = useState<number>(0);
-  const totalHoldingData = useCryptoData();
-  const cryptoPrices = useCryptoPrices();
+  const totalHoldingData = useCryptoData() || {};
+  const cryptoPrices = useCryptoPrices() || [];
 
   const handleCryptoClick = (cryptoName: string) => {
     setSelectCrypto(cryptoName);
@@ -58,6 +59,7 @@ export default function App() {
         <DropDown />
       </header>
       <OverviewCard totalValue={totalValue} />
+      <Outlet />
       {selectedCrypto ? (
         <>
           <TransactionTable
@@ -67,7 +69,11 @@ export default function App() {
         </>
       ) : (
         <>
-          <CryptoTable onCryptoClick={handleCryptoClick} />
+          <CryptoTable
+            onCryptoClick={handleCryptoClick}
+            totalHoldingData={totalHoldingData}
+            cryptoPrices={cryptoPrices}
+          />
         </>
       )}
 
