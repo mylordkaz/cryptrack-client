@@ -1,21 +1,26 @@
 import './CryptoTable.css';
 import add from '../assets/btn+.svg';
-
-import useCryptoData from '../service/useCryptoData';
-import useCryptoPrices from '../service/api/useCryptoPrices';
+import { Link } from 'react-router-dom';
 
 interface CryptoTableProps {
   onCryptoClick: (cryptoName: string) => void;
+  totalHoldingData: { [cryptoName: string]: number };
+  cryptoPrices: { name: string; price: number }[];
 }
 
-export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
-  const totalHoldingData = useCryptoData();
-  const cryptoPrices = useCryptoPrices();
-
+export default function CryptoTable({
+  onCryptoClick,
+  totalHoldingData,
+  cryptoPrices,
+}: CryptoTableProps) {
   const handleCryptoRowClick = (cryptoName: string) => {
     onCryptoClick(cryptoName);
   };
 
+  if (!totalHoldingData || !cryptoPrices) {
+    // return a loading indicator, or null to render nothing
+    return null;
+  }
   return (
     <>
       <div className="crypto-container">
@@ -23,7 +28,9 @@ export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
           <div className="crypto-nav">
             <span>Assets</span>
             <button>
-              <img src={add} alt="+ button" />
+              <Link to="/app/add">
+                <img src={add} alt="+ button" />
+              </Link>
             </button>
           </div>
           <div className="table">
