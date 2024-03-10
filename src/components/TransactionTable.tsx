@@ -1,9 +1,12 @@
 import './CryptoTable.css';
-
 import { useEffect, useState } from 'react';
+import { fetchTransactions } from '../service/useFetchTransaction';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
+import DeleteTransactionModal from './DeleteTransactionModal';
 import axios from 'axios';
 
 interface Transaction {
+  id: number;
   name: string;
   price: number;
   quantity: number;
@@ -19,23 +22,20 @@ export default function TransactionTable({
   onBack,
 }: TransactionTableProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<Transaction | null>(null);
 
   useEffect(() => {
-    const fetchTransactions = async () => {
+    const fetchAndSetTransactions = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/transactions/all?name=${cryptoName}`,
-          {
-            withCredentials: true,
-          }
-        );
-        setTransactions(response.data.transactions);
-        console.log(transactions);
-      } catch (error: any) {
-        console.error('Error fetching transactions:', error.message);
+        const fetchedTransactions = await fetchTransactions(cryptoName);
+        setTransactions(fetchedTransactions);
+      } catch (error) {
+        console.error('Error in component:', error);
       }
     };
-    fetchTransactions();
+    fetchAndSetTransactions();
   }, [cryptoName]);
 
   const formatDate = (dateString: string) => {
@@ -48,9 +48,31 @@ export default function TransactionTable({
     const formatter = new Intl.DateTimeFormat(undefined, options);
     return formatter.format(date);
   };
+  const handleDeleteConfirm = async () => {
+    if (!selectedTransaction) return;
+
+    try {
+      await axios.delete(
+        `http://localhost:3000/transactions/${selectedTransaction.id}`,
+        { withCredentials: true }
+      );
+      setTransactions(
+        transactions.filter((t) => t.id !== selectedTransaction.id)
+      );
+      setIsModalOpen(false);
+      setSelectedTransaction(null);
+    } catch (error) {
+      console.error('Failed to delete transaction:', error);
+    }
+  };
 
   return (
     <>
+      <DeleteTransactionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDeleteConfirm}
+      />
       <div className="crypto-container">
         <div className="crypto-table">
           <div className="crypto-nav">
@@ -64,6 +86,7 @@ export default function TransactionTable({
                   <th>Date</th>
                   <th>Price</th>
                   <th>Quantity</th>
+                  <th>action</th>
                 </tr>
               </thead>
               <tbody>
@@ -72,6 +95,16 @@ export default function TransactionTable({
                     <td>{formatDate(transaction.date)}</td>
                     <td>{transaction.price}</td>
                     <td>{transaction.quantity}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          setIsModalOpen(true);
+                          setSelectedTransaction(transaction);
+                        }}
+                      >
+                        <RiDeleteBin6Fill />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
