@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOutsideClick from '../hook/useOutsideClick';
 import '../add.css';
 import useCryptoPrices from '../service/api/useCryptoPrices';
+import axios from 'axios';
 
 export default function AddTransaction() {
   const navigate = useNavigate();
@@ -33,13 +34,33 @@ export default function AddTransaction() {
     cryptoPrices.find((crypto) => crypto.name === selectedCoin)?.price || 0;
   const total = selectedCryptoPrice * quantity;
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!quantity || isNaN(quantity) || quantity <= 0) {
+      alert('Please enter the quantity');
+      return;
+    }
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/transactions/add',
+        { name: selectedCoin, price: selectedCryptoPrice, quantity: quantity },
+        { withCredentials: true }
+      );
+      console.log('Transaction added:', response.data);
+    } catch (error) {
+      console.error('Failed to add transaction:', error);
+    }
+    navigate('/app');
+  };
+
   return (
     <>
       <div className="container" ref={transacRef}>
         <div className="transaction-form">
           <h3 className="transaction-title">Add Transactions</h3>
 
-          <form className="signin">
+          <form className="signin" onSubmit={handleSubmit}>
             <div className="lab-in">
               <label htmlFor="currency">Select Coin</label>
               <select
