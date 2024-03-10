@@ -1,0 +1,54 @@
+.selection {
+  width: 76%;
+  color: #0c0c0c;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: rgba(240, 242, 247, 0.839);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 50px;
+  text-align: center;
+  margin-bottom: 27px;
+  font-family: Inter, sans-serif;
+}
+.select-selected {
+  background: rgba(24, 52, 124, 0.839);
+}
+.lab-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.transaction-title {
+  padding-top: 40px;
+  color: #272cb0;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+}
+.transaction-form {
+  position: absolute;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+  background-color: rgba(211, 217, 236, 0.877);
+  width: 98%;
+  height: auto;
+  margin: 7em auto;
+  padding-bottom: 20px;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+@media screen and (min-width: 768px) {
+  .transaction-form {
+    width: 400px;
+  }
+}
