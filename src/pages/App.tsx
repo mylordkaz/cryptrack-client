@@ -4,11 +4,15 @@ import OverviewCard from '../components/OverviewCard.tsx';
 import CryptoTable from '../components/CryptoTable.tsx';
 import DropDown from '../components/ui/DropDown.tsx';
 import TransactionTable from '../components/TransactionTable.tsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useCryptoData from '../service/useCryptoData.ts';
+import useCryptoPrices from '../service/api/useCryptoPrices.ts';
 
 export default function App() {
   const [selectedCrypto, setSelectCrypto] = useState<string | null>(null);
-  const [totalPortfolioValue, setTotalPortfolioValue] = useState<number>(0);
+  const [totalValue, setTotalValue] = useState<number>(0);
+  const totalHoldingData = useCryptoData();
+  const cryptoPrices = useCryptoPrices();
 
   const handleCryptoClick = (cryptoName: string) => {
     setSelectCrypto(cryptoName);
@@ -17,24 +21,54 @@ export default function App() {
     setSelectCrypto(null);
   };
 
+  useEffect(() => {
+    const calculateTotalValue = () => {
+      if (selectedCrypto) {
+        // calculate for selected crypto
+        const holdingAmount = totalHoldingData[selectedCrypto] || 0;
+        const cryptoPrice =
+          cryptoPrices.find(
+            (crypto) =>
+              crypto.name.toLowerCase() === selectedCrypto.toLowerCase()
+          )?.price || 0;
+        setTotalValue(holdingAmount * cryptoPrice);
+      } else {
+        // calculate for all cryptos
+        const total = Object.entries(totalHoldingData).reduce(
+          (acc, [cryptoName, holdingAmount]) => {
+            const price =
+              cryptoPrices.find(
+                (crypto) =>
+                  crypto.name.toLowerCase() === cryptoName.toLowerCase()
+              )?.price || 0;
+            return acc + price * holdingAmount;
+          },
+          0
+        );
+        setTotalValue(total);
+      }
+    };
+    calculateTotalValue();
+  }, [selectedCrypto, totalHoldingData, cryptoPrices]);
+
   return (
     <>
       <header className="app-header">
         <img className="app-logo" src={logo} alt="" />
         <DropDown />
       </header>
-
-      <OverviewCard totalPortfolioValue={totalPortfolioValue} />
+      <OverviewCard totalValue={totalValue} />
       {selectedCrypto ? (
-        <TransactionTable
-          cryptoName={selectedCrypto}
-          onBack={handleBackClick}
-        />
+        <>
+          <TransactionTable
+            cryptoName={selectedCrypto}
+            onBack={handleBackClick}
+          />
+        </>
       ) : (
-        <CryptoTable
-          onCryptoClick={handleCryptoClick}
-          setTotalPortfolioValue={setTotalPortfolioValue}
-        />
+        <>
+          <CryptoTable onCryptoClick={handleCryptoClick} />
+        </>
       )}
 
       <footer></footer>
