@@ -49,5 +49,3 @@ const useCryptoPrices = () => {
 
   return cryptoPrices;
 };
-
-export default useCryptoPrices;
