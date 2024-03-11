@@ -1,6 +1,12 @@
-import { ReactNode, createContext, useContext, useState } from 'react';
-import useCryptoData from '../service/useCryptoData';
-import useCryptoPrices from '../service/api/useCryptoPrices';
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { fetchCryptoPrices } from '../service/api/fetchCryptoPrices';
+import { fetchTotalHoldingData } from '../service/fetchTotalHolding';
 
 interface TransactionsContextType {
   totalHoldingData: { [cryptoName: string]: number };
@@ -31,14 +37,17 @@ export const TransactionProvider: React.FC<{ children: ReactNode }> = ({
   >([]);
   const refreshData = async () => {
     try {
-      const updatedTotalHoldingData = useCryptoData();
-      const updatedCryptoPrices = useCryptoPrices();
+      const updatedTotalHoldingData = await fetchTotalHoldingData();
+      const updatedCryptoPrices = await fetchCryptoPrices();
       setTotalHoldingData(updatedTotalHoldingData);
       setCryptoPrices(updatedCryptoPrices);
     } catch (error) {
       console.error('Failed to fetch updated data:', error);
     }
   };
+  useEffect(() => {
+    refreshData();
+  }, []);
 
   return (
     <TransactionContext.Provider
