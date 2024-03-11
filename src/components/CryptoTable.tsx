@@ -1,6 +1,7 @@
 import './CryptoTable.css';
 import add from '../assets/btn+.svg';
 import { Link } from 'react-router-dom';
+import { useTransactionContext } from '../context/TransactionContext';
 
 interface CryptoTableProps {
   onCryptoClick: (cryptoName: string) => void;
@@ -8,11 +9,8 @@ interface CryptoTableProps {
   cryptoPrices: { name: string; price: number }[];
 }
 
-export default function CryptoTable({
-  onCryptoClick,
-  totalHoldingData,
-  cryptoPrices,
-}: CryptoTableProps) {
+export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
+  const { totalHoldingData, cryptoPrices } = useTransactionContext();
   const handleCryptoRowClick = (cryptoName: string) => {
     onCryptoClick(cryptoName);
   };
