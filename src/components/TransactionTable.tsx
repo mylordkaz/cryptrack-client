@@ -1,6 +1,6 @@
 import './CryptoTable.css';
 import { useEffect, useState } from 'react';
-import { fetchTransactions } from '../service/useFetchTransaction';
+import { fetchTransactions } from '../service/fetchTransactions';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import DeleteTransactionModal from './DeleteTransactionModal';
 import axios from 'axios';
