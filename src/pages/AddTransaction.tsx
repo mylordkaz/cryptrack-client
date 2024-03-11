@@ -2,15 +2,18 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOutsideClick from '../hook/useOutsideClick';
 import '../add.css';
-import useCryptoPrices from '../service/api/useCryptoPrices';
-import { addTransaction } from '../service/usePostTransaction';
+
+import { addTransaction } from '../service/postTransactions';
+import useCryptoPrice from '../hook/useCryptoPrice';
+import { useTransactionContext } from '../context/TransactionContext';
 
 export default function AddTransaction() {
   const navigate = useNavigate();
   const transacRef = useRef<HTMLDivElement | null>(null);
   const [selectedCoin, setSelectedCoin] = useState('');
   const [quantity, setQuantity] = useState<number>(0);
-  const cryptoPrices = useCryptoPrices();
+  const cryptoPrices = useCryptoPrice();
+  const { refreshData } = useTransactionContext();
 
   useOutsideClick(transacRef, () => {
     navigate('/app');
@@ -43,6 +46,7 @@ export default function AddTransaction() {
     }
     try {
       await addTransaction(selectedCoin, selectedCryptoPrice, quantity);
+      refreshData();
       navigate('/app');
     } catch (error) {
       console.error('Failed to add transaction:', error);
@@ -76,6 +80,7 @@ export default function AddTransaction() {
               <input
                 type="number"
                 placeholder=""
+                step="any"
                 onChange={handleQuantityChange}
               />
             </div>
