@@ -8,6 +8,7 @@ import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
 import App from './pages/App.tsx';
 import AddTransaction from './pages/AddTransaction.tsx';
+import { TransactionProvider } from './context/TransactionContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <TransactionProvider>
+      <RouterProvider router={router} />
+    </TransactionProvider>
   </React.StrictMode>
 );
