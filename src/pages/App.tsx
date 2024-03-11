@@ -5,15 +5,15 @@ import CryptoTable from '../components/CryptoTable.tsx';
 import DropDown from '../components/ui/DropDown.tsx';
 import TransactionTable from '../components/TransactionTable.tsx';
 import { useEffect, useState } from 'react';
-import useCryptoData from '../service/useCryptoData.ts';
-import useCryptoPrices from '../service/api/useCryptoPrices.ts';
+import useCryptoData from '../hook/useCryptosData.tsx';
 import { Outlet } from 'react-router-dom';
+import useCryptoPrice from '../hook/useCryptoPrice.tsx';
 
 export default function App() {
   const [selectedCrypto, setSelectCrypto] = useState<string | null>(null);
   const [totalValue, setTotalValue] = useState<number>(0);
   const totalHoldingData = useCryptoData() || {};
-  const cryptoPrices = useCryptoPrices() || [];
+  const cryptoPrices = useCryptoPrice() || [];
 
   const handleCryptoClick = (cryptoName: string) => {
     setSelectCrypto(cryptoName);
