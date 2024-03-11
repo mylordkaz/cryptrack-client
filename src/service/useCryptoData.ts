@@ -32,5 +32,3 @@ const useCryptoData = () => {
 
   return totalHoldingData;
 };
-
-export default useCryptoData;
