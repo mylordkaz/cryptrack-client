@@ -22,7 +22,7 @@ export default function App() {
   };
   useEffect(() => {
     refreshData();
-  });
+  }, []);
 
   useEffect(() => {
     const calculateTotalValue = () => {
