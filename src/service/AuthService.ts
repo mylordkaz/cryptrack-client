@@ -1,7 +1,4 @@
 import axios from 'axios';
-import { useTransactionContext } from '../context/TransactionContext';
-
-const { resetState } = useTransactionContext();
 
 const logout = async (): Promise<boolean> => {
   try {
@@ -15,7 +12,7 @@ const logout = async (): Promise<boolean> => {
 
     if (response.status === 200) {
       console.log('Logout successful');
-      resetState();
+
       localStorage.clear();
 
       return true;
