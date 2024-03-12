@@ -73,3 +73,6 @@ input:focus {
   font-weight: 500;
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
+.switch-link {
+  margin-top: 20%;
+}
