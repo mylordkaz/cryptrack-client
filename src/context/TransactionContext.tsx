@@ -12,6 +12,7 @@ interface TransactionsContextType {
   totalHoldingData: { [cryptoName: string]: number };
   cryptoPrices: { name: string; price: number }[];
   refreshData: () => void;
+  resetState: () => void;
 }
 
 const TransactionContext = createContext<TransactionsContextType | undefined>(
@@ -45,13 +46,19 @@ export const TransactionProvider: React.FC<{ children: ReactNode }> = ({
       console.error('Failed to fetch updated data:', error);
     }
   };
+
+  const resetState = () => {
+    setTotalHoldingData({});
+    setCryptoPrices([]);
+  };
+
   useEffect(() => {
     refreshData();
   }, []);
 
   return (
     <TransactionContext.Provider
-      value={{ totalHoldingData, cryptoPrices, refreshData }}
+      value={{ totalHoldingData, cryptoPrices, refreshData, resetState }}
     >
       {children}
     </TransactionContext.Provider>
