@@ -58,9 +58,9 @@ export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
                         onClick={() => handleCryptoRowClick(cryptoName)}
                       >
                         <td>{cryptoName}</td>
-                        <td>${price.toLocaleString()}</td>
+                        <td>${price.toFixed(4)}</td>
                         <td>
-                          {`$ ${totalValue.toFixed(3)} `} <br /> {holdingAmount}
+                          {`$ ${totalValue.toFixed(2)} `} <br /> {holdingAmount}
                         </td>
                       </tr>
                     );
