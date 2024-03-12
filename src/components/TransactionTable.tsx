@@ -93,7 +93,7 @@ export default function TransactionTable({
                 {transactions.map((transaction) => (
                   <tr key={transaction.date}>
                     <td>{formatDate(transaction.date)}</td>
-                    <td>{transaction.price}</td>
+                    <td>{transaction.price.toFixed(4)}</td>
                     <td>{transaction.quantity}</td>
                     <td>
                       <button
