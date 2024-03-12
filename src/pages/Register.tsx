@@ -1,5 +1,5 @@
 import { useState, FormEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 import '../auth.css';
@@ -68,6 +68,9 @@ const Register: React.FC = () => {
               Register
             </button>
           </form>
+          <div className="switch-link">
+            <Link to="/login">Already have a account?</Link>
+          </div>
         </div>
       </div>
     </>

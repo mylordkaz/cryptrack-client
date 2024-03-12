@@ -1,5 +1,5 @@
 import { useState, FormEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../auth.css';
 import useOutsideClick from '../hook/useOutsideClick';
@@ -61,6 +61,9 @@ const Login = () => {
               Login
             </button>
           </form>
+          <div className="switch-link">
+            <Link to="/register">Not register yet?</Link>
+          </div>
         </div>
       </div>
     </>
