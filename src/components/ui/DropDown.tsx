@@ -4,17 +4,20 @@ import menu from '../../assets/menu.svg';
 import './dropdown.css';
 import useOutsideClick from '../../hook/useOutsideClick';
 import { logout } from '../../service/AuthService';
+import { useTransactionContext } from '../../context/TransactionContext';
 
 export default function DropDown() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+  const { resetState } = useTransactionContext();
 
   const handleLogout = async () => {
     const successLogout = await logout();
 
     if (successLogout) {
       navigate('/');
+      resetState();
     }
   };
   const toggleDropdown = () => {
