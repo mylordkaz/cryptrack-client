@@ -1,15 +1,16 @@
 describe('Login', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('/login');
   });
 
   it('successfully logs in', () => {
     // Fill in the login form
     cy.get('input[type="email"]').type('user@example.com'); // user's email
-    cy.get('input[type="password"]').type('password123'); // user's password
+    cy.get('input[type="password"]').type('Password123@'); // user's password
 
     cy.get('form').submit();
   });
+
   it(' invalid login', () => {
     // Fill in the login form with invalid credentials
     cy.get('input[type="email"]').type('wronguser@example.com');
