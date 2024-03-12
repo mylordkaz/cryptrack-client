@@ -16,14 +16,12 @@ const Register: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        'https://localhost:3000/auth/Register',
-        {
-          email: email,
-          username: username,
-          password: password,
-        }
-      );
+      axios.defaults.withCredentials = true;
+      const response = await axios.post('http://localhost:3000/auth/Register', {
+        email: email,
+        username: username,
+        password: password,
+      });
 
       if (response.status === 201) {
         navigate('/App');
