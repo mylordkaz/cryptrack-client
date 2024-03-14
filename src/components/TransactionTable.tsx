@@ -53,7 +53,7 @@ export default function TransactionTable({
 
     try {
       await axios.delete(
-        `http://localhost:3000/transactions/${selectedTransaction.id}`,
+        `https://cryptrack-server.onrender.com/transactions/${selectedTransaction.id}`,
         { withCredentials: true }
       );
       setTransactions(

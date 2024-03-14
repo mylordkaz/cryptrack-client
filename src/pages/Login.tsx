@@ -16,10 +16,13 @@ const Login = () => {
     try {
       axios.defaults.withCredentials = true;
 
-      const response = await axios.post('http://localhost:3000/auth/login', {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        'https://cryptrack-server.onrender.com/auth/login',
+        {
+          email: email,
+          password: password,
+        }
+      );
 
       if (response.status === 200) {
         navigate('/App');

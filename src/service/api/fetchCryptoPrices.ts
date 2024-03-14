@@ -20,9 +20,12 @@ export async function fetchCryptoPrices(): Promise<CryptoData[]> {
   }
 
   try {
-    const response = await axios.get('http://localhost:3000/cryptos/prices', {
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      'https://cryptrack-server.onrender.com/cryptos/prices',
+      {
+        withCredentials: true,
+      }
+    );
     localStorage.setItem(
       cacheKey,
       JSON.stringify({

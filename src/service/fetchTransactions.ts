@@ -3,7 +3,7 @@ import axios from 'axios';
 export const fetchTransactions = async (cryptoName: string) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/transactions/all?name=${cryptoName}`,
+      `https://cryptrack-server.onrender.com/transactions/all?name=${cryptoName}`,
       {
         withCredentials: true,
       }

@@ -14,7 +14,7 @@ const useCryptoData = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:3000/transactions/total',
+          'https://cryptrack-server.onrender.com/transactions/total',
           {
             withCredentials: true,
           }

@@ -17,11 +17,14 @@ const Register: React.FC = () => {
 
     try {
       axios.defaults.withCredentials = true;
-      const response = await axios.post('http://localhost:3000/auth/Register', {
-        email: email,
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        'https://cryptrack-server.onrender.com/auth/Register',
+        {
+          email: email,
+          username: username,
+          password: password,
+        }
+      );
 
       if (response.status === 201) {
         navigate('/App');

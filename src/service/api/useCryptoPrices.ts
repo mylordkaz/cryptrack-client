@@ -25,7 +25,7 @@ const useCryptoPrices = () => {
       }
       try {
         const response = await axios.get(
-          'http://localhost:3000/cryptos/prices',
+          'https://cryptrack-server.onrender.com/cryptos/prices',
           {
             withCredentials: true,
           }
