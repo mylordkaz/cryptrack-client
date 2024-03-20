@@ -18,15 +18,12 @@
 }
 .signin-text {
   display: none;
+  font-size: 1em;
+  font-weight: 500;
 }
 .signin-svg {
   width: 60px;
   padding: 10px;
-}
-.login-btn {
-  border-radius: 50%;
-  box-shadow: 0px 0px 9px 0px #b4b4b6;
-  background-color: #e0e5f4;
 }
 
 /* main */
@@ -113,7 +110,9 @@
   }
   .signin-text {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0.3em 0.8em;
   }
 
   a {
@@ -122,6 +121,6 @@
     text-decoration: inherit;
   }
   a:hover {
-    color: #535bf2;
+    color: #464ff9;
   }
 }
