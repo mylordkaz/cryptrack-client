@@ -60,7 +60,7 @@ export default function App() {
         <img className="app-logo" src={logo} alt="" />
         <DropDown />
       </header>
-      <OverviewCard totalValue={totalValue} />
+      <OverviewCard totalValue={totalValue} cryptoName={selectedCrypto} />
       <Outlet />
       {selectedCrypto ? (
         <>
