@@ -12,12 +12,12 @@ export default function Landing() {
           <img className="logo" src={logo} alt="logo" />
           <h1>Cryptrack</h1>
         </div>
-        <div className="login-btn">
+        <button className="login-btn">
           <Link to="/login">
             <img src={login} alt="Sign In" className="signin-svg" />
-            <span className="signin-text">Sign In</span>
+            <span className="signin-text">Login</span>
           </Link>
-        </div>
+        </button>
       </header>
       <Outlet />
       <main className="main">
