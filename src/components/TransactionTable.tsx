@@ -77,7 +77,9 @@ export default function TransactionTable({
         <div className="crypto-table">
           <div className="crypto-nav">
             <span>transactions</span>
-            <button onClick={onBack}>back</button>
+            <button className="back-btn" onClick={onBack}>
+              back
+            </button>
           </div>
           <div className="table">
             <table>
