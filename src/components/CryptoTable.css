@@ -23,10 +23,10 @@
   font-size: 20px;
 }
 .crypto-nav button img {
-  width: 35px;
+  width: 50px;
 }
-.crypto-nav button:hover {
-  width: 40px;
+.crypto-nav button img:hover {
+  width: 50px;
 }
 .back-btn {
   border-radius: 8px;
@@ -39,6 +39,9 @@
   color: #f0f8ff;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+.back-btn:hover {
+  background-color: #464ff9;
 }
 .table {
   width: 100%;
