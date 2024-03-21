@@ -9,6 +9,7 @@ import Login from './pages/Login.tsx';
 import App from './pages/App.tsx';
 import AddTransaction from './pages/AddTransaction.tsx';
 import { TransactionProvider } from './context/TransactionContext.tsx';
+import Setting from './pages/Setting.tsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/app/add',
         element: <AddTransaction />,
+      },
+      {
+        path: '/app/setting',
+        element: <Setting />,
       },
     ],
   },
