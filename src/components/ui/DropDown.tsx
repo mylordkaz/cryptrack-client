@@ -36,7 +36,11 @@ export default function DropDown() {
         </button>
         {isDropdownOpen && (
           <div ref={dropdownRef} className="dropdown">
-            <Link className="drop-link" to="/settings">
+            <Link
+              onClick={closeDropdown}
+              className="drop-link"
+              to="/app/setting"
+            >
               Settings
             </Link>
             <button className="drop-link" onClick={handleLogout}>
