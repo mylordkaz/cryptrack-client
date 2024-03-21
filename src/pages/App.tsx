@@ -5,7 +5,7 @@ import CryptoTable from '../components/CryptoTable.tsx';
 import DropDown from '../components/ui/DropDown.tsx';
 import TransactionTable from '../components/TransactionTable.tsx';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useTransactionContext } from '../context/TransactionContext.tsx';
 
 export default function App() {
@@ -57,7 +57,9 @@ export default function App() {
   return (
     <>
       <header className="app-header">
-        <img className="app-logo" src={logo} alt="" />
+        <Link to="/">
+          <img className="app-logo" src={logo} alt="" />
+        </Link>
         <DropDown />
       </header>
       <OverviewCard totalValue={totalValue} cryptoName={selectedCrypto} />
