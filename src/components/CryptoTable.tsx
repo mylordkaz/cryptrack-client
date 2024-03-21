@@ -1,5 +1,5 @@
 import './CryptoTable.css';
-import add from '../assets/btn+.svg';
+import added from '../assets/add-circle.svg';
 import { Link } from 'react-router-dom';
 import { useTransactionContext } from '../context/TransactionContext';
 
@@ -27,7 +27,7 @@ export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
             <span>Assets</span>
             <button>
               <Link to="/app/add">
-                <img src={add} alt="+ button" />
+                <img src={added} alt="+ button" />
               </Link>
             </button>
           </div>
