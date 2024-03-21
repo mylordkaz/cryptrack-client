@@ -14,6 +14,7 @@ export default function AddTransaction() {
   const [quantity, setQuantity] = useState<number>(0);
   const cryptoPrices = useCryptoPrice();
   const { refreshData } = useTransactionContext();
+  const [price, setPrice] = useState('');
 
   useOutsideClick(transacRef, () => {
     navigate('/app');
@@ -24,6 +25,13 @@ export default function AddTransaction() {
       setSelectedCoin(cryptoPrices[0].name);
     }
   }, [cryptoPrices]);
+  useEffect(() => {
+    const fetchedPrice =
+      cryptoPrices
+        .find((crypto) => crypto.name === selectedCoin)
+        ?.price.toFixed(2) || '';
+    setPrice(fetchedPrice);
+  }, [selectedCoin, cryptoPrices]);
 
   const handleCoinChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCoin(event.target.value);
@@ -33,9 +41,13 @@ export default function AddTransaction() {
     setQuantity(parseFloat(event.target.value) || 0);
   };
 
-  const selectedCryptoPrice =
-    cryptoPrices.find((crypto) => crypto.name === selectedCoin)?.price || 0;
-  const total = selectedCryptoPrice * quantity;
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(event.target.value);
+  };
+
+  // const selectedCryptoPrice =
+  //   cryptoPrices.find((crypto) => crypto.name === selectedCoin)?.price || 0;
+  const total = parseFloat(price) * quantity;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -45,7 +57,7 @@ export default function AddTransaction() {
       return;
     }
     try {
-      await addTransaction(selectedCoin, selectedCryptoPrice, quantity);
+      await addTransaction(selectedCoin, parseFloat(price), quantity);
       refreshData();
       navigate('/app');
     } catch (error) {
@@ -89,8 +101,8 @@ export default function AddTransaction() {
               <input
                 type="number"
                 placeholder=""
-                value={selectedCryptoPrice.toFixed(2)}
-                readOnly
+                value={price}
+                onChange={handlePriceChange}
               />
             </div>
 
