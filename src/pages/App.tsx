@@ -62,8 +62,8 @@ export default function App() {
         </Link>
         <DropDown />
       </header>
-      <OverviewCard totalValue={totalValue} cryptoName={selectedCrypto} />
       <Outlet />
+      <OverviewCard totalValue={totalValue} cryptoName={selectedCrypto} />
       {selectedCrypto ? (
         <>
           <TransactionTable
