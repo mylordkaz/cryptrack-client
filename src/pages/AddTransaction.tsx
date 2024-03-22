@@ -80,7 +80,7 @@ export default function AddTransaction() {
                 onChange={handleCoinChange}
                 value={selectedCoin}
               >
-                {cryptoPrices.map((crypto) => (
+                {cryptoPrices?.map((crypto) => (
                   <option key={crypto.name} value={crypto.name}>
                     {crypto.name}
                   </option>
