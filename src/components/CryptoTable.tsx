@@ -74,16 +74,3 @@ export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
     </>
   );
 }
-
-// const calculateTotalportfolioValue = () => {
-//   let sum = 0;
-//   Object.entries(totalHoldingData).forEach(([cryptoName, holdingAmount]) => {
-//     const crypto = cryptoPrices.find(
-//       ({ name }) =>
-//         name.toLocaleLowerCase() === cryptoName.toLocaleLowerCase()
-//     );
-//     const price = crypto ? crypto.price : 0;
-//     const totalValue = price * holdingAmount;
-//     sum += totalValue;
-//   });
-// };
