@@ -17,7 +17,7 @@ export default function CryptoTable({ onCryptoClick }: CryptoTableProps) {
 
   if (!totalHoldingData || !cryptoPrices) {
     // return a loading indicator, or null to render nothing
-    return null;
+    return <div>Loading...</div>;
   }
   return (
     <>
