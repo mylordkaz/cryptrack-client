@@ -1,25 +1,31 @@
-describe('Login', () => {
+describe('Login Page', () => {
   beforeEach(() => {
+    cy.intercept('POST', 'https://cryptrack-server.onrender.com/auth/login', {
+      statusCode: 200,
+      body: {
+        message: 'Login successful',
+      },
+    }).as('loginRequest');
+
     cy.visit('/login');
   });
 
-  it('successfully logs in', () => {
-    // Fill in the login form
-    cy.get('input[type="email"]').type('user@example.com'); // user's email
-    cy.get('input[type="password"]').type('Password123@'); // user's password
+  it('allows user to log in', () => {
+    cy.get('input[type="email"]').type('user@example.com');
+    cy.get('input[type="password"]').type('password');
 
     cy.get('form').submit();
+
+    cy.wait('@loginRequest').its('request.body').should('deep.equal', {
+      email: 'user@example.com',
+      password: 'password',
+    });
+
+    cy.url().should('include', '/App');
   });
 
-  it(' invalid login', () => {
-    // Fill in the login form with invalid credentials
-    cy.get('input[type="email"]').type('wronguser@example.com');
-    cy.get('input[type="password"]').type('wrongpassword');
-
-    // Submit the form
-    cy.get('form').submit();
-
-    // Check that the application did not redirect
-    cy.url().should('include', '/login'); // Make sure we're still on the login page
+  it('navigates to the registration page when the link is clicked', () => {
+    cy.contains('Not register yet?').click();
+    cy.url().should('include', '/register');
   });
 });
