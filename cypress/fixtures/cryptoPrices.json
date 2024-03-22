@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Bitcoin",
+    "price": 50000
+  },
+  {
+    "name": "Ethereum",
+    "price": 4000
+  },
+  {
+    "name": "Cardano",
+    "price": 2.3
+  },
+  {
+    "name": "Binance Coin",
+    "price": 300
+  },
+  {
+    "name": "Solana",
+    "price": 100
+  },
+  {
+    "name": "XRP",
+    "price": 1.1
+  },
+  {
+    "name": "Polkadot",
+    "price": 30
+  },
+  {
+    "name": "Dogecoin",
+    "price": 0.2
+  },
+  {
+    "name": "Shiba Inu",
+    "price": 0.00003
+  },
+  {
+    "name": "Litecoin",
+    "price": 200
+  }
+]
