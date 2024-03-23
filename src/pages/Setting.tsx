@@ -41,6 +41,8 @@ export default function Setting() {
           <h3>About me</h3>
         </div>
         <form onSubmit={handleSave}>
+          <h1>Modify User Informations</h1>
+
           <div className="set-input">
             <label htmlFor="username">Username</label>
             <input
