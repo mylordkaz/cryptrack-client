@@ -3,6 +3,7 @@ import '../setting.css';
 import { useRef, useState } from 'react';
 import useOutsideClick from '../hook/useOutsideClick';
 import axios from 'axios';
+import DeleteAccountModal from '../components/DeleteAccountModal';
 
 export default function Setting() {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ export default function Setting() {
   const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSave = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -29,12 +32,32 @@ export default function Setting() {
       alert('Failed to update profile');
     }
   };
+  const handleDeleteAccount = async () => {
+    try {
+      await axios.delete(
+        'https://cryptrack-server.onrender.com/user/delete-account',
+        {
+          withCredentials: true,
+        }
+      );
+      alert('Account deleted successfully.');
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Failed to delete account:', error);
+      alert('Failed to delete account.');
+    }
+  };
 
   useOutsideClick(setRef, () => {
     navigate('/app');
   });
   return (
     <>
+      <DeleteAccountModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDeleteAccount}
+      />
       <div ref={setRef} className="setting-page">
         <div className="set-header">
           <h1>Profile Settings</h1>
@@ -87,6 +110,11 @@ export default function Setting() {
             Save
           </button>
         </form>
+        <div className="delete-container">
+          <h1>Delete your account</h1>
+          <span>Click the button bellow to delete your account.</span>
+          <button>Delete Account</button>
+        </div>
       </div>
     </>
   );
