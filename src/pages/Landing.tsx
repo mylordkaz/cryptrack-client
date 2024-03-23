@@ -3,6 +3,7 @@ import logo from '../assets/logo.svg';
 import login from '../assets/login.svg';
 import { Link, Outlet } from 'react-router-dom';
 import '../landing.css';
+import Footer from '../components/Footer';
 
 export default function Landing() {
   return (
@@ -31,6 +32,7 @@ export default function Landing() {
           <button className="landing-btn">Get started...</button>
         </Link>
       </main>
+      <Footer />
     </>
   );
 }
