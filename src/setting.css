@@ -2,7 +2,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: inherit;
+  background: inherit;
 }
 .set-header {
   font-weight: 500;
@@ -33,6 +33,7 @@
 }
 .set-input input {
   background-color: #ffffff;
+  border: 1px solid #dddcdc;
 }
 .set-btn {
   width: 50%;
