@@ -4,8 +4,12 @@ import login from '../assets/login.svg';
 import { Link, Outlet } from 'react-router-dom';
 import '../landing.css';
 import Footer from '../components/Footer';
+import { useEffect } from 'react';
 
 export default function Landing() {
+  useEffect(() => {
+    document.title = 'Cryptrack - web app';
+  }, []);
   return (
     <>
       <header className="header">
