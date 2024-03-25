@@ -47,3 +47,6 @@
   font-weight: 600;
   box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 }
+.delete-modal .delete-btn {
+  background: linear-gradient(to right, #b02727, #fb4040);
+}
