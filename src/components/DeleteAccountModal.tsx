@@ -23,7 +23,9 @@ const DeleteAccountModal: React.FC<DeleteTransactionModalProps> = ({
           <h1>Delete your Account</h1>
           <p>Are you sure you want to delete your account ?</p>
           <p>all your data will be lost!</p>
-          <button onClick={onConfirm}>Delete</button>
+          <button className="delete-btn" onClick={onConfirm}>
+            Delete
+          </button>
           <button onClick={onClose}>Cancel</button>
         </div>
       </div>
