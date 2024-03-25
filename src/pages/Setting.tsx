@@ -113,7 +113,13 @@ export default function Setting() {
         <div className="delete-container">
           <h1>Delete your account</h1>
           <span>Click the button bellow to delete your account.</span>
-          <button>Delete Account</button>
+          <button
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+          >
+            Delete Account
+          </button>
         </div>
       </div>
     </>
