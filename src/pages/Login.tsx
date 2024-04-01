@@ -8,6 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const signinRef = useRef<HTMLDivElement | null>(null);
 
@@ -34,6 +35,7 @@ const Login = () => {
 
       return;
     }
+    setIsLoading(true);
 
     try {
       axios.defaults.withCredentials = true;
@@ -55,6 +57,8 @@ const Login = () => {
       }
     } catch (error: any) {
       console.error('Error during login:', error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,8 +92,8 @@ const Login = () => {
             {errors.password && (
               <div className="text-red-500 text-sm">{errors.password}</div>
             )}
-            <button className="submit" type="submit">
-              Login
+            <button className="submit" type="submit" disabled={isLoading}>
+              {isLoading ? <div className="spinner"></div> : 'Login'}
             </button>
           </form>
           <div className="switch-link">
