@@ -7,11 +7,33 @@ import useOutsideClick from '../hook/useOutsideClick';
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [errors, setErrors] = useState({ email: '', password: '' });
   const navigate = useNavigate();
   const signinRef = useRef<HTMLDivElement | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrors({ email: '', password: '' });
+
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      setErrors((prev) => ({
+        ...prev,
+        email: 'Please enter a valid email address.',
+      }));
+      return;
+    }
+    const pwdRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    if (!pwdRegex.test(password)) {
+      setErrors((prev) => ({
+        ...prev,
+        password:
+          'Password must be at least 6 characters long, contain at least one uppercase letter, one symbol, and one number.',
+      }));
+
+      return;
+    }
 
     try {
       axios.defaults.withCredentials = true;
@@ -53,6 +75,9 @@ const Login = () => {
               value={email}
               placeholder="email"
             />
+            {errors.email && (
+              <div className="text-red-500 text-sm">{errors.email}</div>
+            )}
 
             <input
               type="password"
@@ -60,6 +85,9 @@ const Login = () => {
               value={password}
               placeholder="password"
             />
+            {errors.password && (
+              <div className="text-red-500 text-sm">{errors.password}</div>
+            )}
             <button className="submit" type="submit">
               Login
             </button>

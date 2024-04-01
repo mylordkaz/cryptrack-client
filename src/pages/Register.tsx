@@ -11,9 +11,31 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
   const registerRef = useRef<HTMLDivElement | null>(null);
+  const [errors, setErrors] = useState({ email: '', password: '' });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrors({ email: '', password: '' });
+
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      setErrors((prev) => ({
+        ...prev,
+        email: 'Please enter a valid email address.',
+      }));
+      return;
+    }
+    const pwdRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    if (!pwdRegex.test(password)) {
+      setErrors((prev) => ({
+        ...prev,
+        password:
+          'Password must be at least 6 characters long, contain at least one uppercase letter, one symbol, and one number.',
+      }));
+
+      return;
+    }
 
     try {
       axios.defaults.withCredentials = true;
@@ -54,6 +76,9 @@ const Register: React.FC = () => {
               value={email}
               placeholder="Email"
             />
+            {errors.email && (
+              <div className="text-red-500 text-sm">{errors.email}</div>
+            )}
             <input
               type="text"
               onChange={(e) => setUsername(e.target.value)}
@@ -67,6 +92,9 @@ const Register: React.FC = () => {
               value={password}
               placeholder="Password"
             />
+            {errors.password && (
+              <div className="text-red-500 text-sm">{errors.password}</div>
+            )}
             <button className="submit" type="submit">
               Register
             </button>
