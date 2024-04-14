@@ -1,7 +1,7 @@
 import { useState, FormEvent, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../auth.css';
+import '../styles/auth.css';
 import useOutsideClick from '../hook/useOutsideClick';
 
 const Login = () => {

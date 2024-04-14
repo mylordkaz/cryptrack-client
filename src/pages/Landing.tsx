@@ -2,7 +2,7 @@ import wallet from '../assets/wallet.svg';
 import logo from '../assets/logo.svg';
 import login from '../assets/login.svg';
 import { Link, Outlet } from 'react-router-dom';
-import '../landing.css';
+import '../styles/landing.css';
 import Footer from '../components/Footer';
 import { useEffect } from 'react';
 

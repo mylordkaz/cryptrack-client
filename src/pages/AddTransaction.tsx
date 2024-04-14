@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useOutsideClick from '../hook/useOutsideClick';
-import '../add.css';
+import '../styles/add.css';
 
 import { addTransaction } from '../service/postTransactions';
 import useCryptoPrice from '../hook/useCryptoPrice';

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import '../setting.css';
+import '../styles/setting.css';
 import { useRef, useState } from 'react';
 import useOutsideClick from '../hook/useOutsideClick';
 import axios from 'axios';

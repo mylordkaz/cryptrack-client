@@ -1,5 +1,5 @@
 import logo from '../assets/logo.svg';
-import '../App.css';
+import '../styles/App.css';
 import OverviewCard from '../components/OverviewCard.tsx';
 import CryptoTable from '../components/CryptoTable.tsx';
 import DropDown from '../components/ui/DropDown.tsx';
