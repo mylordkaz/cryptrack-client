@@ -63,7 +63,7 @@
   font-weight: 500;
   margin-bottom: 20px;
 }
-.delete-container {
+.delete-container button {
   width: 50%;
   margin-top: 40px;
   border-radius: 8px;
