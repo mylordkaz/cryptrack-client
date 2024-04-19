@@ -7,7 +7,6 @@ export interface TotalHoldingData {
 // Separate fetching logic into its own function
 export async function fetchTotalHoldingData(): Promise<TotalHoldingData> {
   try {
-    axios.defaults.withCredentials = true;
     const response = await axios.get(
       'https://cryptrack-server.onrender.com/transactions/total',
       {
