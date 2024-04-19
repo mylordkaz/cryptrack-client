@@ -6,6 +6,7 @@ export const addTransaction = async (
   quantity: number
 ) => {
   try {
+    axios.defaults.withCredentials = true;
     const response = await axios.post(
       'https://cryptrack-server.onrender.com/transactions/add',
       { name: selectedCoin, price: selectedCryptoPrice, quantity: quantity },

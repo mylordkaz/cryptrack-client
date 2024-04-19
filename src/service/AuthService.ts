@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const logout = async (): Promise<boolean> => {
   try {
+    axios.defaults.withCredentials = true;
     const response = await axios.post(
       'https://cryptrack-server.onrender.com/auth/logout',
       {},
