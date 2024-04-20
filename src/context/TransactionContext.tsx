@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { fetchCryptoPrices } from '../service/api/fetchCryptoPrices';
 import { fetchTotalHoldingData } from '../service/fetchTotalHolding';
+import axios from 'axios';
 
 interface TransactionsContextType {
   totalHoldingData: { [cryptoName: string]: number };
@@ -38,6 +39,7 @@ export const TransactionProvider: React.FC<{ children: ReactNode }> = ({
   >([]);
   const refreshData = async () => {
     try {
+      axios.defaults.withCredentials = true;
       const updatedTotalHoldingData = await fetchTotalHoldingData();
       const updatedCryptoPrices = await fetchCryptoPrices();
       setTotalHoldingData(updatedTotalHoldingData);
