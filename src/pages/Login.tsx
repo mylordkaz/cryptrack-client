@@ -12,29 +12,30 @@ const Login = () => {
   const navigate = useNavigate();
   const signinRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setErrors({ email: '', password: '' });
-
+  const validateForm = (email: string, password: string) => {
+    const errors = { email: '', password: '' };
     const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-      setErrors((prev) => ({
-        ...prev,
-        email: 'Please enter a valid email address.',
-      }));
-      return;
-    }
     const pwdRegex =
       /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    if (!pwdRegex.test(password)) {
-      setErrors((prev) => ({
-        ...prev,
-        password:
-          'Password must be at least 6 characters long, contain at least one uppercase letter, one symbol, and one number.',
-      }));
 
+    if (!emailRegex.test(email)) {
+      errors.email = 'please entrer a valid email address';
+    }
+    if (!pwdRegex.test(password)) {
+      errors.password =
+        'Password must be at least 6 characters long, contain at least one uppercase letter, one symbol, and one number.';
+    }
+    return errors;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const formErrors = validateForm(email, password);
+    if (formErrors.email || formErrors.password) {
+      setErrors(formErrors);
       return;
     }
+
     setIsLoading(true);
 
     try {
