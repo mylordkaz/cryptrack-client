@@ -7,7 +7,8 @@ import {
 } from 'react';
 import { fetchCryptoPrices } from '../service/api/fetchCryptoPrices';
 import { fetchTotalHoldingData } from '../service/fetchTotalHolding';
-import axios from 'axios';
+import Cookies from 'js-cookie';
+import { AuthContext } from './AuthContext';
 
 interface TransactionsContextType {
   totalHoldingData: { [cryptoName: string]: number };
@@ -37,10 +38,17 @@ export const TransactionProvider: React.FC<{ children: ReactNode }> = ({
   const [cryptoPrices, setCryptoPrices] = useState<
     { name: string; price: number }[]
   >([]);
+
+  const { user } = useContext(AuthContext)!;
   const refreshData = async () => {
+    if (!user) return;
     try {
-      axios.defaults.withCredentials = true;
-      const updatedTotalHoldingData = await fetchTotalHoldingData();
+      const accessToken = Cookies.get('accessToken');
+      if (!accessToken) {
+        throw new Error('No access token found');
+      }
+
+      const updatedTotalHoldingData = await fetchTotalHoldingData(accessToken);
       const updatedCryptoPrices = await fetchCryptoPrices();
       setTotalHoldingData(updatedTotalHoldingData);
       setCryptoPrices(updatedCryptoPrices);
@@ -55,8 +63,10 @@ export const TransactionProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   useEffect(() => {
-    refreshData();
-  }, []);
+    if (user) {
+      refreshData();
+    }
+  }, [user]);
 
   return (
     <TransactionContext.Provider
