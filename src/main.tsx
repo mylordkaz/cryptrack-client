@@ -10,6 +10,7 @@ import App from './pages/App.tsx';
 import AddTransaction from './pages/AddTransaction.tsx';
 import { TransactionProvider } from './context/TransactionContext.tsx';
 import Setting from './pages/Setting.tsx';
+import { AuthProvider } from './context/AuthContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -48,8 +49,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <TransactionProvider>
-      <RouterProvider router={router} />
-    </TransactionProvider>
+    <AuthProvider>
+      <TransactionProvider>
+        <RouterProvider router={router} />
+      </TransactionProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
