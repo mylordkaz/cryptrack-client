@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-export const fetchTransactions = async (cryptoName: string) => {
+export const fetchTransactions = async (cryptoName: string, token: string) => {
   try {
     const response = await axios.get(
       `https://cryptrack-server.onrender.com/transactions/all?name=${cryptoName}`,
       {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       }
     );
