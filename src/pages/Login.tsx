@@ -1,8 +1,8 @@
-import { useState, FormEvent, useRef } from 'react';
+import { useState, FormEvent, useRef, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/auth.css';
 import useOutsideClick from '../hook/useOutsideClick';
+import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
@@ -11,6 +11,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const signinRef = useRef<HTMLDivElement | null>(null);
+  const { login } = useContext(AuthContext)!;
 
   const validateForm = (email: string, password: string) => {
     const errors = { email: '', password: '' };
@@ -39,24 +40,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      axios.defaults.withCredentials = true;
-
-      const response = await axios.post(
-        'https://cryptrack-server.onrender.com/auth/login',
-        {
-          email: email,
-          password: password,
-        },
-        { withCredentials: true }
-      );
-
-      if (response.status === 200) {
-        navigate('/App');
-        console.log('Login successfully');
-      } else {
-        console.error('Invalid credentials:', response.data);
-        navigate('/');
-      }
+      await login(email, password);
+      navigate('/App');
+      console.log('Login successfully');
     } catch (error: any) {
       console.error('Error during login:', error.message);
     } finally {

@@ -1,9 +1,9 @@
 import { useState, FormEvent, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
 import '../styles/auth.css';
 import useOutsideClick from '../hook/useOutsideClick';
+import { registerUser } from '../service/AuthService';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -38,23 +38,10 @@ const Register: React.FC = () => {
     }
 
     try {
-      axios.defaults.withCredentials = true;
-      const response = await axios.post(
-        'https://cryptrack-server.onrender.com/auth/Register',
-        {
-          email: email,
-          username: username,
-          password: password,
-        }
-      );
+      await registerUser(username, email, password);
 
-      if (response.status === 201) {
-        navigate('/App');
-        console.log('registration successful');
-      } else {
-        console.error('Invalid credentials:');
-        navigate('/');
-      }
+      navigate('/App');
+      console.log('registration successful');
     } catch (error: any) {
       console.error('Error during registration:', error.message);
     }
