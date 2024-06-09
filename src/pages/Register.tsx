@@ -1,9 +1,9 @@
-import { useState, FormEvent, useRef } from 'react';
+import { useState, FormEvent, useRef, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import '../styles/auth.css';
 import useOutsideClick from '../hook/useOutsideClick';
-import { registerUser } from '../service/AuthService';
+import { AuthContext } from '../context/AuthContext';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -12,6 +12,7 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const registerRef = useRef<HTMLDivElement | null>(null);
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const { register } = useContext(AuthContext)!;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -38,8 +39,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      await registerUser(username, email, password);
-
+      await register(username, email, password);
       navigate('/App');
       console.log('registration successful');
     } catch (error: any) {
