@@ -1,33 +1,25 @@
-import axios from 'axios';
+import api from './axios';
+import Cookies from 'js-cookie';
 
-const logout = async (): Promise<boolean> => {
-  try {
-    const response = await axios.post(
-      'https://cryptrack-server.onrender.com/auth/logout',
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-
-    if (response.status === 200) {
-      console.log('Logout successful');
-
-      localStorage.clear();
-
-      return true;
-    } else {
-      console.error('Failed to logout');
-      return false;
-    }
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios error during logout:', error.message);
-    } else if (error instanceof Error) {
-      console.error('General error during logout:', error.message);
-    }
-    return false;
-  }
+export const registerUser = async (
+  username: string,
+  email: string,
+  password: string
+) => {
+  const response = await api.post('/auth/register', {
+    username,
+    email,
+    password,
+  });
+  return response.data;
+};
+export const loginUser = async (email: string, password: string) => {
+  const response = await api.post('/auth/login', { email, password });
+  return response.data;
 };
 
-export { logout };
+export const logoutUser = async () => {
+  await api.post('auth/logout');
+  Cookies.remove('accessToken', { path: '/' });
+  Cookies.remove('refreshToken', { path: '/' });
+};
