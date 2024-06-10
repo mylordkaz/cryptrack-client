@@ -60,9 +60,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setUser({ email: data.email });
   };
 
-  const logout = () => {
-    logoutUser();
-    setUser(null);
+  const logout = async () => {
+    try {
+      await logoutUser();
+      Cookies.remove('accessToken', { sameSite: 'none', secure: true });
+      Cookies.remove('refreshToken', { sameSite: 'none', secure: true });
+      setUser(null);
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (
