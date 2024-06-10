@@ -3,17 +3,16 @@ import axios from 'axios';
 export const addTransaction = async (
   selectedCoin: string,
   selectedCryptoPrice: number,
-  quantity: number,
-  token: string
+  quantity: number
 ) => {
   try {
     const response = await axios.post(
       'https://cryptrack-server.onrender.com/transactions/add',
       { name: selectedCoin, price: selectedCryptoPrice, quantity: quantity },
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
         withCredentials: true,
       }
     );
