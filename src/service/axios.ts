@@ -15,29 +15,33 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// handle token refresh
+// Handle token refresh
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
       try {
         const refreshToken = Cookies.get('refreshToken');
         if (!refreshToken) {
-          // If there's no refresh token, log out the user
           await logoutUser();
           return Promise.reject(error);
         }
-        const { data } = await api.post('/auth/refresh-token');
+        const { data } = await api.post('/auth/refresh-token', {
+          token: refreshToken,
+        });
         Cookies.set('accessToken', data.accessToken, {
           sameSite: 'none',
           secure: true,
         });
-
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        return api(originalRequest);
+        return api(originalRequest); // Retry the original request with new token
       } catch (err) {
         console.error('Token refresh failed', err);
         await logoutUser();
