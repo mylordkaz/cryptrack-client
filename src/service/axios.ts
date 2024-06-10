@@ -35,13 +35,13 @@ api.interceptors.response.use(
           sameSite: 'none',
           secure: true,
         });
-        Cookies.set('refreshToken', data.refreshToken, {
-          sameSite: 'none',
-          secure: true,
-        });
+
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+        return api(originalRequest);
       } catch (err) {
         console.error('Token refresh failed', err);
+        await logoutUser();
+        return Promise.reject(err);
       }
     }
     return Promise.reject(error);
