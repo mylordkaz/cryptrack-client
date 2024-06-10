@@ -3,6 +3,7 @@ import {
   fetchTotalHoldingData,
   TotalHoldingData,
 } from '../service/fetchTotalHolding';
+import Cookies from 'js-cookie';
 // Adjust the path as necessary
 
 const useCryptoData = () => {
@@ -12,7 +13,11 @@ const useCryptoData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchTotalHoldingData();
+      const accessToken = Cookies.get('accessToken');
+      if (!accessToken) {
+        throw new Error('No access token found');
+      }
+      const data = await fetchTotalHoldingData(accessToken);
       setTotalHoldingData(data);
     };
 
