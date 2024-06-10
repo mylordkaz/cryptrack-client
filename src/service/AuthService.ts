@@ -19,7 +19,12 @@ export const loginUser = async (email: string, password: string) => {
 };
 
 export const logoutUser = async () => {
-  await api.post('auth/logout');
-  Cookies.remove('accessToken', { path: '/' });
-  Cookies.remove('refreshToken', { path: '/' });
+  try {
+    await api.post('/auth/logout', {}, { withCredentials: true });
+  } catch (error) {
+    console.error('Error during logout:', error);
+  } finally {
+    Cookies.remove('accessToken', { path: '/' });
+    Cookies.remove('refreshToken', { path: '/' });
+  }
 };
