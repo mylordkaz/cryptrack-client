@@ -1,24 +1,23 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import menu from '../../assets/menu.svg';
 import './dropdown.css';
 import useOutsideClick from '../../hook/useOutsideClick';
-import { logout } from '../../service/AuthService';
 import { useTransactionContext } from '../../context/TransactionContext';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function DropDown() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const { resetState } = useTransactionContext();
+  const { logout } = useContext(AuthContext)!;
 
   const handleLogout = async () => {
-    const successLogout = await logout();
+    await logout();
 
-    if (successLogout) {
-      navigate('/');
-      resetState();
-    }
+    navigate('/');
+    resetState();
   };
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
