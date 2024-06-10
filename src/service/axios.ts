@@ -15,7 +15,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle token refresh
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -41,7 +40,7 @@ api.interceptors.response.use(
           secure: true,
         });
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        return api(originalRequest); // Retry the original request with new token
+        return api(originalRequest);
       } catch (err) {
         console.error('Token refresh failed', err);
         await logoutUser();
