@@ -5,14 +5,16 @@ export interface TotalHoldingData {
 }
 
 // Separate fetching logic into its own function
-export async function fetchTotalHoldingData(): Promise<TotalHoldingData> {
+export async function fetchTotalHoldingData(
+  token: string
+): Promise<TotalHoldingData> {
   try {
     const response = await axios.get(
       'https://cryptrack-server.onrender.com/transactions/total',
       {
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         withCredentials: true,
       }
     );
