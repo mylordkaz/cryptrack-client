@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { logoutUser } from './AuthService';
 
 const api = axios.create({
   baseURL: 'https://cryptrack-server.onrender.com',
@@ -23,6 +24,12 @@ api.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
+        const refreshToken = Cookies.get('refreshToken');
+        if (!refreshToken) {
+          // If there's no refresh token, log out the user
+          await logoutUser();
+          return Promise.reject(error);
+        }
         const { data } = await api.post('/auth/refresh-token');
         Cookies.set('accessToken', data.accessToken, {
           sameSite: 'none',
