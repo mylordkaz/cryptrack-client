@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 import { loginUser, logoutUser, registerUser } from '../service/AuthService';
 
 interface AuthContextType {
@@ -24,11 +25,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const accessToken = Cookies.get('accessToken');
-    if (accessToken) {
-      // decode token to get user info
-      const user = {};
-      setUser(user);
-    }
+    if (accessToken)
+      try {
+        const decodedToken = jwtDecode(accessToken);
+        setUser(decodedToken);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
   }, []);
 
   const register = async (
@@ -45,7 +48,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       sameSite: 'lax',
       secure: true,
     });
-    setUser({ username: data.username, email: data.email });
+    const decodedToken = jwtDecode(data.accessToken);
+    setUser({ username: data.username, email: data.email, ...decodedToken });
   };
   const login = async (email: string, password: string) => {
     const data = await loginUser(email, password);
@@ -57,7 +61,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       sameSite: 'lax',
       secure: true,
     });
-    setUser({ email: data.email });
+    const decodedToken = jwtDecode(data.accessToken);
+    setUser({ email: data.email, ...decodedToken });
   };
 
   const logout = async () => {

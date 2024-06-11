@@ -29,7 +29,15 @@ export const logoutUser = async () => {
   } catch (error) {
     console.error('Error during logout:', error);
   } finally {
-    Cookies.remove('accessToken', { path: '/' });
-    Cookies.remove('refreshToken', { path: '/' });
+    Cookies.remove('accessToken', {
+      path: '/',
+      sameSite: 'lax',
+      secure: true,
+    });
+    Cookies.remove('refreshToken', {
+      path: '/',
+      sameSite: 'lax',
+      secure: true,
+    });
   }
 };
