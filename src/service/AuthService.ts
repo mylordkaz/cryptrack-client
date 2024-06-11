@@ -19,8 +19,13 @@ export const loginUser = async (email: string, password: string) => {
 };
 
 export const logoutUser = async () => {
+  const refreshToken = Cookies.get('refreshToken');
   try {
-    await api.post('/auth/logout', {}, { withCredentials: true });
+    await api.post(
+      '/auth/logout',
+      { token: refreshToken },
+      { withCredentials: true }
+    );
   } catch (error) {
     console.error('Error during logout:', error);
   } finally {
