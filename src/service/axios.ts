@@ -36,7 +36,7 @@ api.interceptors.response.use(
           token: refreshToken,
         });
         Cookies.set('accessToken', data.accessToken, {
-          sameSite: 'none',
+          sameSite: 'lax',
           secure: true,
         });
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;

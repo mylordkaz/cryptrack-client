@@ -38,11 +38,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   ) => {
     const data = await registerUser(username, email, password);
     Cookies.set('accessToken', data.accessToken, {
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
     Cookies.set('refreshToken', data.refreshToken, {
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
     setUser({ username: data.username, email: data.email });
@@ -50,11 +50,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const login = async (email: string, password: string) => {
     const data = await loginUser(email, password);
     Cookies.set('accessToken', data.accessToken, {
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
     Cookies.set('refreshToken', data.refreshToken, {
-      sameSite: 'none',
+      sameSite: 'lax',
       secure: true,
     });
     setUser({ email: data.email });
@@ -63,8 +63,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const logout = async () => {
     try {
       await logoutUser();
-      Cookies.remove('accessToken', { sameSite: 'none', secure: true });
-      Cookies.remove('refreshToken', { sameSite: 'none', secure: true });
+      Cookies.remove('accessToken', { sameSite: 'lax', secure: true });
+      Cookies.remove('refreshToken', { sameSite: 'lax', secure: true });
       setUser(null);
     } catch (error) {
       console.error('Error during logout:', error);
