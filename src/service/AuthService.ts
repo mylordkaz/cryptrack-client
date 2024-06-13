@@ -29,5 +29,4 @@ const logout = async (): Promise<boolean> => {
     return false;
   }
 };
-
 export { logout };
