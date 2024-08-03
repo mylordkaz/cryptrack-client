@@ -14,10 +14,10 @@ export async function fetchTotalHoldingData(): Promise<TotalHoldingData> {
       }
     );
 
-    console.log(response.data.totalAmounts); // Optional: You might want to remove this or use a more formal logging approach
+    console.log(response.data.totalAmounts);
     return response.data.totalAmounts;
   } catch (error: any) {
     console.error('Failed to fetch total holding data:', error.message);
-    return {}; // Return an empty object or handle the error as needed
+    return {};
   }
 }
